@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:noviindus/src/provider/loginProvider.dart';
 import 'package:noviindus/src/ui/reUsableWidget/reUsableWidget.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
+    var loginPro = Provider.of<LoginProvider>(context, listen: false);
+
     return Scaffold(
       floatingActionButton: SizedBox(
         width: size.width - 80,
@@ -18,7 +22,10 @@ class LoginScreen extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               onPressed: () {
-                Navigator.of(context).pushNamed("/dashBoardScreen");
+                loginPro.onLoginClick(
+                    userName: "admin_user",
+                    password: "123admin789",
+                    context: context);
               },
               child: Text(
                 "Login",
@@ -68,14 +75,17 @@ class LoginScreen extends StatelessWidget {
             height: 1,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 40,right: 40,top: 40,bottom: 10),
-            child:
-            textField(hintText:"Enter Username" ,  ),
+            padding:
+                const EdgeInsets.only(left: 40, right: 40, top: 40, bottom: 10),
+            child: textField(
+              hintText: "Enter Username",
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 40,right: 40,top: 10),
-            child:
-            textField(hintText:"Password" ,  ),
+            padding: const EdgeInsets.only(left: 40, right: 40, top: 10),
+            child: textField(
+              hintText: "Password",
+            ),
           ),
           SizedBox(
             height: 20,
