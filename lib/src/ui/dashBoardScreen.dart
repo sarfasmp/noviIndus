@@ -78,11 +78,8 @@ class DashBoardScreen extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.only(left: 20, right: 20),
                         child: InkWell(
-                          onTap: (){
-                            Navigator.pushNamed(
-                                context,
-                                "/driverListScreen");
-
+                          onTap: () {
+                            Navigator.pushNamed(context, "/driverListScreen");
                           },
                           child: Container(
                             padding: EdgeInsets.only(right: 10),
@@ -104,12 +101,14 @@ class DashBoardScreen extends StatelessWidget {
                                         Text(
                                           "Driver",
                                           style: TextStyle(
-                                              fontSize: 26, color: Colors.white),
+                                              fontSize: 26,
+                                              color: Colors.white),
                                         ),
                                         Text(
                                           "Manage your driver",
                                           style: TextStyle(
-                                              fontSize: 10, color: Colors.white),
+                                              fontSize: 10,
+                                              color: Colors.white),
                                         ),
                                       ],
                                     ),
@@ -136,11 +135,11 @@ class DashBoardScreen extends StatelessWidget {
               FutureBuilder(
                   future: dashPro.fetchBusList(
                       token: token.toString(),
-                      key: key.toString(),
+                      key: apiKey.toString(),
                       context: context),
                   builder: (context, snap) {
                     if (!snap.hasData) {
-                      return CircularProgressIndicator();
+                      return Center(child: CircularProgressIndicator());
                     } else {
                       List<BusList> busList = snap.data as List<BusList>;
                       return Column(
@@ -155,9 +154,7 @@ class DashBoardScreen extends StatelessWidget {
                                   )),
                             ].cast<Widget>() +
                             busList
-                                .map((e) =>
-
-                                Padding(
+                                .map((e) => Padding(
                                       padding:
                                           EdgeInsets.only(left: 20, right: 20),
                                       child: Card(
@@ -169,9 +166,9 @@ class DashBoardScreen extends StatelessWidget {
                                             children: [
                                               Container(
                                                 decoration: BoxDecoration(
-                                                  // image: DecorationImage(
-                                                  //   image: NetworkImage(baseUrl+e.image.toString())
-                                                  // ),
+                                                    // image: DecorationImage(
+                                                    //   image: NetworkImage(baseUrl+e.image.toString())
+                                                    // ),
                                                     borderRadius:
                                                         BorderRadius.only(
                                                             topLeft: Radius
@@ -195,8 +192,8 @@ class DashBoardScreen extends StatelessWidget {
                                                   children: [
                                                     Column(
                                                       children: [
-                                                        Text(e.driver??""),
-                                                        Text(e.name??"")
+                                                        Text(e.driver ?? ""),
+                                                        Text(e.name ?? "")
                                                       ],
                                                     ),
                                                     Padding(
@@ -217,7 +214,12 @@ class DashBoardScreen extends StatelessWidget {
                                                         onPressed: () {
                                                           Navigator.pushNamed(
                                                               context,
-                                                              "/busManageScreen");
+                                                              "/busManageScreen",
+                                                              arguments: BusList(
+                                                                  seatCount: e
+                                                                      .seatCount,
+                                                                  type:
+                                                                      e.type));
                                                         },
                                                         child: Text(
                                                           "Manage",

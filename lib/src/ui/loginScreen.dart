@@ -8,14 +8,14 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
+    //bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     var loginPro = Provider.of<LoginProvider>(context, listen: false);
 
     return Scaffold(
       floatingActionButton: SizedBox(
         width: size.width - 80,
         child: Visibility(
-          visible: !keyboardIsOpen,
+         // visible: !keyboardIsOpen,
           child: FloatingActionButton(
               backgroundColor: HexColor("#FC153B"),
               shape: RoundedRectangleBorder(
@@ -23,8 +23,8 @@ class LoginScreen extends StatelessWidget {
               ),
               onPressed: () {
                 loginPro.onLoginClick(
-                    userName: "admin_user",
-                    password: "123admin789",
+                    userName: loginPro.nameCnt.text,
+                    password: loginPro.pswCnt.text,
                     context: context);
               },
               child: Text(
@@ -77,13 +77,15 @@ class LoginScreen extends StatelessWidget {
           Padding(
             padding:
                 const EdgeInsets.only(left: 40, right: 40, top: 40, bottom: 10),
-            child: textField(
+            child: CustomTextField(
+              controller: loginPro.nameCnt,
               hintText: "Enter Username",
             ),
           ),
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, top: 10),
-            child: textField(
+            child: CustomTextField(
+              controller: loginPro.pswCnt,
               hintText: "Password",
             ),
           ),
@@ -95,3 +97,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+
+// TODO: Form
+
