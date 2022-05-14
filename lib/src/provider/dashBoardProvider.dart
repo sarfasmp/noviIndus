@@ -1,7 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:noviindus/src/globalVariable/globalVariables.dart';
 import 'package:noviindus/src/model/apiModels.dart';
-import 'package:noviindus/src/publicData/publicData.dart';
+
 
 class DashBoardProvider extends ChangeNotifier {
   Dio dio = Dio();
@@ -16,7 +17,7 @@ class DashBoardProvider extends ChangeNotifier {
       required BuildContext context}) async {
     try {
       Response response = await dio.get(
-          "http://flutter.noviindus.co.in/api/BusListApi/$apiKey",
+          "${baseUrl}BusListApi/$apiKey",
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       if (response.data["status"] == true) {
         _busListModel = BusListModel.fromJson(response.data);
@@ -39,7 +40,7 @@ class DashBoardProvider extends ChangeNotifier {
       required BuildContext context}) async {
     try {
       Response response = await dio.get(
-          "http://flutter.noviindus.co.in/api/DriverApi/$apiKey",
+          "${baseUrl}DriverApi/$apiKey",
           options: Options(headers: {'Authorization': 'Bearer $token'}));
       if (response.data["status"] == true) {
         _driverListModel = DriverListModel.fromJson(response.data);
@@ -60,12 +61,11 @@ class DashBoardProvider extends ChangeNotifier {
     try {
 
       Response response = await dio.delete(
-          "http://flutter.noviindus.co.in/api/DriverApi/$apiKey",
+          "${baseUrl}DriverApi/$apiKey/",
           data: FormData.fromMap(data),
           options: Options(
               headers: {'Authorization': 'Bearer $token'}));
       if (response.data["status"] == true) {
-        _driverListModel = DriverListModel.fromJson(response.data);
         print("deleted");
       }
 
@@ -88,13 +88,16 @@ class DashBoardProvider extends ChangeNotifier {
     };
     try {
       Response response = await dio.post(
-        "http://flutter.noviindus.co.in/api/DriverApi/$apiKey/",
+        "${baseUrl}DriverApi/$apiKey/",
         data: FormData.fromMap(data),
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
       if (response.data["status"] == true) {
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+        Navigator.pop(context);
         print("added");
       }
     } on DioError catch (e) {

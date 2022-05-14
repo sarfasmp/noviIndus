@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 
 class CustomTextField extends StatelessWidget {
   TextEditingController? controller;
@@ -15,13 +15,13 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(
-              color: HexColor("#2a2a2a1a"),
+              color: Color.fromRGBO(42, 42, 42, 0.1),
             ),
             borderRadius: BorderRadius.circular(15)),
         enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: HexColor("#2a2a2a1a")),
+            borderSide: BorderSide(color: Color.fromRGBO(42, 42, 42, 0.1)),
             borderRadius: BorderRadius.circular(15)),
-        fillColor: HexColor("##2a2a2a1a"),
+           fillColor: Color.fromRGBO(42, 42, 42, 0.1),
         filled: true,
         hintText: hintText,
         hintStyle: TextStyle(fontSize: 15),
@@ -40,7 +40,6 @@ void showSnackCm(
     }) {
   var snackBar = SnackBar(
       duration: Duration(seconds: load!=null?60:4),
-      shape: StadiumBorder(),
       behavior: SnackBarBehavior.floating,
       content:  Row(children: [
         load!=null?

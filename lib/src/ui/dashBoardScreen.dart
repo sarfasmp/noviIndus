@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:noviindus/src/globalVariable/globalVariables.dart';
 import 'package:noviindus/src/model/apiModels.dart';
 import 'package:noviindus/src/provider/dashBoardProvider.dart';
-import 'package:noviindus/src/publicData/publicData.dart';
 import 'package:provider/provider.dart';
 
 class DashBoardScreen extends StatelessWidget {
@@ -18,7 +17,7 @@ class DashBoardScreen extends StatelessWidget {
           height: 26,
           width: 120,
         ),
-        backgroundColor: HexColor("#2B2B2B"),
+        backgroundColor: Color.fromRGBO(43, 43, 43, 1),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -37,7 +36,7 @@ class DashBoardScreen extends StatelessWidget {
                         child: Container(
                           height: 200,
                           decoration: BoxDecoration(
-                              color: HexColor("#FC153B"),
+                              color: Color.fromRGBO(252, 21, 59, 1),
                               borderRadius: BorderRadius.circular(10)),
                           child: Stack(
                             children: [
@@ -85,7 +84,7 @@ class DashBoardScreen extends StatelessWidget {
                             padding: EdgeInsets.only(right: 10),
                             height: 200,
                             decoration: BoxDecoration(
-                                color: HexColor("#2B2B2B"),
+                                color: Color.fromRGBO(43, 43, 43, 1),
                                 borderRadius: BorderRadius.circular(10)),
                             child: Stack(
                               children: [
@@ -178,6 +177,11 @@ class DashBoardScreen extends StatelessWidget {
                                                                     10))),
                                                 height: 60,
                                                 width: 70,
+                                                child: Image.network(baseUrl+e.image.toString(),
+                                                 errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace){
+                                                   return Center(child: const Text('😢'));
+                                                 }
+                                                ),
                                               ),
                                               SizedBox(
                                                 width: 10,
@@ -190,11 +194,13 @@ class DashBoardScreen extends StatelessWidget {
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    Column(
-                                                      children: [
-                                                        Text(e.driver ?? ""),
-                                                        Text(e.name ?? "")
-                                                      ],
+                                                    Expanded(
+                                                      child: Column(
+                                                        children: [
+                                                          Text(e.driver ?? ""),
+                                                          Text(e.name ?? "")
+                                                        ],
+                                                      ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -202,24 +208,29 @@ class DashBoardScreen extends StatelessWidget {
                                                               right: 15.0),
                                                       child: ElevatedButton(
                                                         style: ButtonStyle(
-                                                            shape: MaterialStateProperty.all(
-                                                                RoundedRectangleBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8))),
-                                                            backgroundColor:
-                                                                MaterialStateProperty
-                                                                    .all(HexColor(
-                                                                        "#FC153B"))),
+                                                          shape: MaterialStateProperty.all(
+                                                              RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8))),
+                                                          backgroundColor:
+                                                              MaterialStateProperty
+                                                                  .all(
+                                                            Color.fromRGBO(250, 21, 59, 1),
+                                                          ),
+                                                        ),
                                                         onPressed: () {
                                                           Navigator.pushNamed(
                                                               context,
                                                               "/busManageScreen",
-                                                              arguments: BusList(
-                                                                  seatCount: e
-                                                                      .seatCount,
-                                                                  type:
-                                                                      e.type));
+                                                              arguments:
+                                                                  BusList(
+                                                                seatCount:
+                                                                    e.seatCount,
+                                                                type: e.type,
+                                                                name: e.name,
+                                                              ));
                                                         },
                                                         child: Text(
                                                           "Manage",

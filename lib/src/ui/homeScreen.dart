@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 
 class MyHomePage extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class MyHomePage extends StatelessWidget {
       body: Container(
         width: size.width,
         height: size.height,
-        color: HexColor("#FC153B"),
+        color: Color.fromRGBO(252, 21, 59, 1),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +49,7 @@ class MyHomePage extends StatelessWidget {
                               },
                               child: Text(
                                 "GET STARTED",
-                                style: TextStyle(color: HexColor("#FC153B"),fontSize: 20),
+                                style: TextStyle(color: Color.fromRGBO(252, 21, 59, 1),fontSize: 20),
                               )),
                         ),
                       ))),

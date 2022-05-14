@@ -1,11 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:noviindus/src/globalVariable/globalVariables.dart';
+
 import 'package:noviindus/src/model/apiModels.dart';
 import 'package:noviindus/src/provider/dashBoardProvider.dart';
-import 'package:noviindus/src/publicData/publicData.dart';
 import 'package:provider/provider.dart';
 
-class DriverListScreen extends StatelessWidget {
+class DriverListScreen extends StatefulWidget {
+  @override
+  _DriverListScreenState createState() => _DriverListScreenState();
+}
+
+class _DriverListScreenState extends State<DriverListScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -13,18 +19,23 @@ class DriverListScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text("Driver List"),
-          backgroundColor: HexColor("#2B2B2B"),
+          backgroundColor:Color.fromRGBO(43, 43, 43, 1),
           centerTitle: true,
         ),
         floatingActionButton: SizedBox(
           width: size.width - 80,
           child: FloatingActionButton(
-              backgroundColor: HexColor("#FC153B"),
+              backgroundColor: Color.fromRGBO(252, 21, 59, 1),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               onPressed: () {
-                Navigator.pushNamed(context, "/driverAddScreen");
+                Navigator.pushNamed(context, "/driverAddScreen").then((value) {
+                  setState(() {
+                    print("sarfas");
+                  });
+                  return;
+                });
               },
               child: Text(
                 "Add Driver",
@@ -45,7 +56,7 @@ class DriverListScreen extends StatelessWidget {
               } else {
                 List<DriverList> driverList = snap.data as List<DriverList>;
                 return ListView(
-                    padding: EdgeInsets.only(bottom: 50),
+                    padding: EdgeInsets.only(bottom: 80),
                     children: driverList
                         .map(
                           (e) => Padding(
@@ -58,14 +69,18 @@ class DriverListScreen extends StatelessWidget {
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                          // image: DecorationImage(
-                                          //   image: NetworkImage(baseUrl+e.image.toString())
-                                          // ),
+                                        color: Color.fromRGBO(243, 243, 243, 1),
                                           borderRadius: BorderRadius.only(
                                               topLeft: Radius.circular(10),
                                               bottomLeft: Radius.circular(10))),
                                       height: 60,
                                       width: 70,
+                                      child: Center(
+                                        child: CircleAvatar(
+                                          backgroundImage: AssetImage("assets/homeScreen/diver.png"),
+                                          radius: 25,
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(
                                       width: 10,
@@ -99,11 +114,13 @@ class DriverListScreen extends StatelessWidget {
                                                                           8))),
                                                   backgroundColor:
                                                       MaterialStateProperty.all(
-                                                          HexColor("#FC153B"))),
+                                                          Color.fromRGBO(252, 21, 59, 1))
+                                              ),
                                               onPressed: () {
                                                 dashPro.deleteDriver(
                                                     deleteId: e.id.toString(),
                                                     context: context);
+                                                setState(() {});
                                               },
                                               child: Text(
                                                 "Delete",

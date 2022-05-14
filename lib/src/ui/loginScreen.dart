@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
+
 import 'package:noviindus/src/provider/loginProvider.dart';
 import 'package:noviindus/src/ui/reUsableWidget/reUsableWidget.dart';
 import 'package:provider/provider.dart';
@@ -8,20 +8,21 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    //bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
+    bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     var loginPro = Provider.of<LoginProvider>(context, listen: false);
 
     return Scaffold(
       floatingActionButton: SizedBox(
         width: size.width - 80,
         child: Visibility(
-         // visible: !keyboardIsOpen,
+          visible: !keyboardIsOpen,
           child: FloatingActionButton(
-              backgroundColor: HexColor("#FC153B"),
+              backgroundColor: Color.fromRGBO(252, 21, 59, 1),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               onPressed: () {
+                showSnackCm(context: context,msg: "Please waite...");
                 loginPro.onLoginClick(
                     userName: loginPro.nameCnt.text,
                     password: loginPro.pswCnt.text,
@@ -38,7 +39,8 @@ class LoginScreen extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           Container(
-            color: HexColor("2B2B2B"),
+            color: Color.fromRGBO(43, 43, 43, 1),
+
             height: size.height * 40 / 100,
             child: Stack(
               children: [

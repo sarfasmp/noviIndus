@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'package:noviindus/src/model/apiModels.dart';
 
 class BusManageScreen extends StatelessWidget {
@@ -9,13 +8,10 @@ class BusManageScreen extends StatelessWidget {
 
     final args = ModalRoute.of(context)!.settings.arguments as BusList;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print({});
-        },
-      ),
+
       appBar: AppBar(
-        backgroundColor: HexColor("#2B2B2B"),
+        title: Text(args.name??""),
+        backgroundColor:Color.fromRGBO(43, 43, 43, 1),
       ),
       body: ListView(
         children: [
@@ -26,7 +22,7 @@ class BusManageScreen extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
-                    color:HexColor("#2B2B2B"),
+                    color:Color.fromRGBO(43, 43, 43, 1),
                     borderRadius: BorderRadius.circular(10)),
                 //height: 100,
                 width: size.width,

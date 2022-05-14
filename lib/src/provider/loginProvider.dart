@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:noviindus/src/publicData/publicData.dart';
+import 'package:noviindus/src/globalVariable/globalVariables.dart';
+import 'package:noviindus/src/ui/reUsableWidget/reUsableWidget.dart';
 
 class LoginProvider extends ChangeNotifier {
 
@@ -17,14 +18,16 @@ class LoginProvider extends ChangeNotifier {
     final data = {"username": userName, "password": password};
     try {
       Response response = await dio.post(
-        "http://flutter.noviindus.co.in/api/LoginApi",
+        "${baseUrl}LoginApi",
         data: FormData.fromMap(data),
       );
       if(response.data["status"]==true){
+        ScaffoldMessenger.of(context).hideCurrentSnackBar();
         apiKey=response.data["url_id"];
         token=response.data["access"];
-
         Navigator.of(context).pushNamed("/dashBoardScreen");
+      }else{
+        showSnackCm(context: context,msg: "Invalid username or password");
       }
 
       print(response.data);
